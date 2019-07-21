@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MvvmDemo.Models
+{
+    /// <summary>
+    /// Employee service class which uses an in-memory collection to perform CRUD operation
+    /// </summary>
+    public class EmployeeService
+    {
+        static List<Employee> ObjEmployeesList;
+        public EmployeeService()
+        {
+            ObjEmployeesList = new List<Employee>()
+            {
+                new Employee { Id=101, Name="Jojo", Age=25 }
+            };
+        }
+
+        public List<Employee> GetAll()
+        {
+            return ObjEmployeesList;
+        }
+
+        public bool Add(Employee objNewEmployee)
+        {
+            bool IsAdded = false;
+            //Age must be between 21 and 58
+            if (objNewEmployee.Age < 21 || objNewEmployee.Age > 58)
+                throw new ArgumentException("Invalid age limit for employee");
+
+            try
+            {
+                ObjEmployeesList.Add(objNewEmployee);
+                IsAdded = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return IsAdded;
+        }
+
+        public bool Update(Employee objEmployeeToUpdate)
+        {
+            bool IsUpdated = false;
+
+            try
+            {
+                var Emp = ObjEmployeesList.FirstOrDefault(e => e.Id == objEmployeeToUpdate.Id);
+                Emp.Name = objEmployeeToUpdate.Name;
+                Emp.Age = objEmployeeToUpdate.Age;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return IsUpdated;
+        }
+
+        public bool Delete(int id)
+        {
+            bool IsDeleted = false;
+            try
+            {
+                for (int i = 0; i < ObjEmployeesList.Count; i++)
+                {
+                    if (ObjEmployeesList[i].Id == id)
+                    {
+                        ObjEmployeesList.RemoveAt(i);
+                        IsDeleted = true;
+                        break;
+                    }
+                }               
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return IsDeleted;
+        }
+
+        public Employee Search(int id)
+        {
+            Employee ObjEmployee = null;
+
+            try
+            {
+                ObjEmployee = ObjEmployeesList.FirstOrDefault(e => e.Id == id);               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ObjEmployee;
+        }
+    }
+}
