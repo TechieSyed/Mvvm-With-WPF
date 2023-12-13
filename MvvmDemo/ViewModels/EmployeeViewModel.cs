@@ -110,6 +110,7 @@ namespace MvvmDemo.ViewModels
                     //CurrentEmployee = ObjEmployee;
                     CurrentEmployee.Name = ObjEmployee.Name;
                     CurrentEmployee.Age = ObjEmployee.Age;
+                    Message = "Employee found";
                 }
                 else
                 {
