@@ -151,6 +151,7 @@ namespace MvvmDemo.ViewModels
         }
         #endregion
 
+        #region DeleteOperation
         private RelayCommands deleteCommand;
 
         public RelayCommands DeleteCommand
@@ -177,6 +178,6 @@ namespace MvvmDemo.ViewModels
                 Message=ex.Message;
             }
         }
-
+        #endregion
     }
 }
