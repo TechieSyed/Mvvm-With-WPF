@@ -101,6 +101,7 @@
                 Name="btnDelete"
                 Margin="5,8"
                 Padding="3"
+                Command="{Binding Path=DeleteCommand}"
                 Content="DELETE" />
         </StackPanel>
 

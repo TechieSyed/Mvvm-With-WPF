@@ -31,6 +31,7 @@ namespace MvvmDemo.ViewModels
             saveCommand=new RelayCommands(Save);
             searchCommand = new RelayCommands(Search);
             updateCommand = new RelayCommands(Update);
+            deleteCommand = new RelayCommands(Delete);
         }
 
         #region DisplayOperation
@@ -149,6 +150,33 @@ namespace MvvmDemo.ViewModels
             }
         }
         #endregion
+
+        private RelayCommands deleteCommand;
+
+        public RelayCommands DeleteCommand
+        {
+            get { return deleteCommand; }
+        }
+        public void Delete()
+        {
+            try
+            {
+                var IsDeleted = ObjEmployeeService.Delete(CurrentEmployee.Id);
+                if (IsDeleted)
+                {
+                    Message = "Employee deleted";
+                    LoadData();
+                } 
+                else
+                {
+                    Message = "Delete operation failed";
+                }
+            }
+            catch (Exception ex)
+            {
+                Message=ex.Message;
+            }
+        }
 
     }
 }
