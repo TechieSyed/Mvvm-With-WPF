@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.ComponentModel;
-namespace MvvmDemo2.Models
+namespace MvvmDemo.Models
 {
     public class Employee : INotifyPropertyChanged
     {
@@ -15,7 +15,7 @@ namespace MvvmDemo2.Models
         //make helper funtion for INotifyPropertyChanged
         private void OnPropertyChanged(string propertyName)
         {
-            if(PropertyChanged != null)
+            if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
