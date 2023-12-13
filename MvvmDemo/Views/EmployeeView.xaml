@@ -28,74 +28,77 @@
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Margin="5,8,5,8"
-            Padding="3,3,3,3"
+            Margin="5,8"
+            Padding="3"
             HorizontalAlignment="Center"
             FontSize="20"
             FontWeight="Bold"
             Text="Employee Management" />
-
         <TextBlock
             Grid.Row="1"
             Grid.Column="0"
-            Margin="5,8,5,8"
-            Padding="3,3,3,3"
+            Margin="5,8"
+            Padding="3"
             Text="Enter Id" />
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            Margin="5,8,5,8"
-            Padding="3,3,3,3"
+            Margin="5,8"
+            Padding="3"
             Text="Enter Name" />
         <TextBlock
             Grid.Row="3"
             Grid.Column="0"
-            Margin="5,8,5,8"
-            Padding="3,3,3,3"
+            Margin="5,8"
+            Padding="3"
             Text="Enter Age" />
 
-        <TextBlock
-            x:Name="txtId"
+        <TextBox
+            Name="txtId"
             Grid.Row="1"
             Grid.Column="1"
-            Margin="5,8,5,8"
-            Padding="3,3,3,3" />
-        <TextBlock
-            x:Name="txtName"
+            Margin="5,8"
+            Padding="3"
+            Text="{Binding Path=CurrentEmployee.Id}" />
+        <TextBox
+            Name="txtName"
             Grid.Row="2"
             Grid.Column="1"
-            Margin="5,8,5,8"
-            Padding="3,3,3,3" />
-        <TextBlock
-            x:Name="txtAge"
+            Margin="5,8"
+            Padding="3"
+            Text="{Binding Path=CurrentEmployee.Name}" />
+        <TextBox
+            Name="txtAge"
             Grid.Row="3"
             Grid.Column="1"
-            Margin="5,8,5,8"
-            Padding="3,3,3,3" />
+            Margin="5,8"
+            Padding="3"
+            Text="{Binding Path=CurrentEmployee.Age}" />
 
         <StackPanel
             Grid.Row="4"
             Grid.Column="1"
             Orientation="Horizontal">
             <Button
-                x:Name="btnAdd"
-                Margin="5,8,5,8"
-                Padding="3,3,3,3"
+                Name="btnAdd"
+                Margin="5,8"
+                Padding="3"
+                Command="{Binding Path=SaveCommand}"
                 Content="ADD" />
             <Button
-                x:Name="btnSearch"
-                Margin="5,8,5,8"
-                Padding="3,3,3,3"
+                Name="btnSearch"
+                Margin="5,8"
+                Padding="3"
                 Content="SEARCH" />
             <Button
-                x:Name="btnUpdate"
-                Margin="5,8,5,8"
-                Padding="3,3,3,3"
+                Name="btnUpdate"
+                Margin="5,8"
+                Padding="3"
                 Content="UPDATE" />
             <Button
-                x:Name="btnDelete"
-                Margin="5,8,5,8"
-                Padding="3,3,3,3"
+                Name="btnDelete"
+                Margin="5,8"
+                Padding="3"
                 Content="DELETE" />
         </StackPanel>
 
@@ -104,7 +107,8 @@
             Grid.Row="5"
             Grid.Column="1"
             Margin="5,8,5,8"
-            Padding="3,3,3,3" />
+            Padding="3,3,3,3"
+            Text="{Binding Path=Message}" />
         <DataGrid
             x:Name="dgEmployees"
             Grid.Row="6"

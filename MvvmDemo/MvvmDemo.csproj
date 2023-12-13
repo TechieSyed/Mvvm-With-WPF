@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\RelayCommands.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="Views\EmployeeView.xaml.cs">
       <DependentUpon>EmployeeView.xaml</DependentUpon>
@@ -104,8 +105,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
