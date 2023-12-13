@@ -15,59 +15,119 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <TextBlock
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="2"
+            Margin="5,8,5,8"
+            Padding="3,3,3,3"
             HorizontalAlignment="Center"
             FontSize="20"
             FontWeight="Bold"
-            Text="Employee Management" Margin="5,8,5,8" Padding="3,3,3,3" />
+            Text="Employee Management" />
 
         <TextBlock
             Grid.Row="1"
             Grid.Column="0"
-            Text="Enter Id" Margin="5,8,5,8" Padding="3,3,3,3" />
+            Margin="5,8,5,8"
+            Padding="3,3,3,3"
+            Text="Enter Id" />
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            Text="Enter Name" Margin="5,8,5,8" Padding="3,3,3,3" />
+            Margin="5,8,5,8"
+            Padding="3,3,3,3"
+            Text="Enter Name" />
         <TextBlock
             Grid.Row="3"
             Grid.Column="0"
-            Text="Enter Age" Margin="5,8,5,8" Padding="3,3,3,3" />
+            Margin="5,8,5,8"
+            Padding="3,3,3,3"
+            Text="Enter Age" />
 
         <TextBlock
             x:Name="txtId"
             Grid.Row="1"
-            Grid.Column="1" Margin="5,8,5,8" Padding="3,3,3,3" />
+            Grid.Column="1"
+            Margin="5,8,5,8"
+            Padding="3,3,3,3" />
         <TextBlock
             x:Name="txtName"
             Grid.Row="2"
-            Grid.Column="1" Margin="5,8,5,8" Padding="3,3,3,3" />
+            Grid.Column="1"
+            Margin="5,8,5,8"
+            Padding="3,3,3,3" />
         <TextBlock
             x:Name="txtAge"
             Grid.Row="3"
-            Grid.Column="1" Margin="5,8,5,8" Padding="3,3,3,3" />
+            Grid.Column="1"
+            Margin="5,8,5,8"
+            Padding="3,3,3,3" />
 
-        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
-            <Button x:Name="btnAdd" Content="ADD" Margin="5,8,5,8" Padding="3,3,3,3" />
-            <Button x:Name="btnSearch" Content="SEARCH" Margin="5,8,5,8" Padding="3,3,3,3" />
-            <Button x:Name="btnUpdate" Content="UPDATE" Margin="5,8,5,8" Padding="3,3,3,3" />
-            <Button x:Name="btnDelete" Content="DELETE" Margin="5,8,5,8" Padding="3,3,3,3" />
+        <StackPanel
+            Grid.Row="4"
+            Grid.Column="1"
+            Orientation="Horizontal">
+            <Button
+                x:Name="btnAdd"
+                Margin="5,8,5,8"
+                Padding="3,3,3,3"
+                Content="ADD" />
+            <Button
+                x:Name="btnSearch"
+                Margin="5,8,5,8"
+                Padding="3,3,3,3"
+                Content="SEARCH" />
+            <Button
+                x:Name="btnUpdate"
+                Margin="5,8,5,8"
+                Padding="3,3,3,3"
+                Content="UPDATE" />
+            <Button
+                x:Name="btnDelete"
+                Margin="5,8,5,8"
+                Padding="3,3,3,3"
+                Content="DELETE" />
         </StackPanel>
 
-        <TextBlock x:Name="txtBlockMessage" Grid.Row="5" Grid.Column="1" Margin="5,8,5,8" Padding="3,3,3,3" />
-        <DataGrid x:Name="dgEmployees" AutoGenerateColumns="False" Grid.Row="6" Grid.Column="1" Margin="5,8,5,8" Padding="3,3,3,3" />
+        <TextBlock
+            x:Name="txtBlockMessage"
+            Grid.Row="5"
+            Grid.Column="1"
+            Margin="5,8,5,8"
+            Padding="3,3,3,3" />
+        <DataGrid
+            x:Name="dgEmployees"
+            Grid.Row="6"
+            Grid.Column="1"
+            Margin="5,8,5,8"
+            Padding="3,3,3,3"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding Path=EmployeesList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="auto"
+                    Binding="{Binding Path=Id}"
+                    Header="Employee Id" />
+                <DataGridTextColumn
+                    Width="auto"
+                    Binding="{Binding Path=Name}"
+                    Header="Employee Name" />
+                <DataGridTextColumn
+                    Width="auto"
+                    Binding="{Binding Path=Age}"
+                    Header="Employee Age" />
+            </DataGrid.Columns>
+        </DataGrid>
 
 
     </Grid>
