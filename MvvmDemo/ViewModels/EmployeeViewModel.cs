@@ -29,7 +29,8 @@ namespace MvvmDemo.ViewModels
             LoadData();
             CurrentEmployee=new Employee();
             saveCommand=new RelayCommands(Save);
-            searchCommand=new RelayCommands(Search);
+            searchCommand = new RelayCommands(Search);
+            updateCommand = new RelayCommands(Update);
         }
 
         #region DisplayOperation
@@ -90,6 +91,7 @@ namespace MvvmDemo.ViewModels
         }
         #endregion
 
+        #region SearchOperation
         private RelayCommands searchCommand;
 
         public RelayCommands SearchCommand
@@ -115,10 +117,38 @@ namespace MvvmDemo.ViewModels
             }
             catch (Exception ex)
             {
-
-                throw;
             }
         }
+        #endregion
+
+        #region UpdateOperation
+        private RelayCommands updateCommand;
+
+        public RelayCommands UpdateCommand
+        {
+            get { return updateCommand; }
+        }
+        public void Update()
+        {
+            try
+            {
+                var IsUpdated = ObjEmployeeService.Update(CurrentEmployee);
+                if (IsUpdated)
+                {
+                    Message = "Employee Updated";
+                    LoadData();
+                }
+                else
+                {
+                    Message = "Update Operation Failed";
+                }
+            }
+            catch (Exception ex)
+            {
+                Message=ex.Message;
+            }
+        }
+        #endregion
 
     }
 }

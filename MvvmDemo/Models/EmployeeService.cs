@@ -38,7 +38,7 @@ namespace MvvmDemo.Models
         public bool Update(Employee employee)
         {
             bool IsUpdated=false;
-            for(int index = 0;ObjEmployeesList.Count< index; index++)
+            for(int index = 0;index<ObjEmployeesList.Count; index++)
             {
                 if (ObjEmployeesList[index].Id==employee.Id)
                 {
@@ -54,7 +54,7 @@ namespace MvvmDemo.Models
         public bool Delete(int id)
         {
             bool IsDeleted=false;
-            for (int index = 0; ObjEmployeesList.Count < index; index++)
+            for (int index = 0; index<ObjEmployeesList.Count; index++)
             {
                 if (ObjEmployeesList[index].Id == id)
                 {

@@ -95,6 +95,7 @@
                 Name="btnUpdate"
                 Margin="5,8"
                 Padding="3"
+                Command="{Binding Path=UpdateCommand}"
                 Content="UPDATE" />
             <Button
                 Name="btnDelete"
