@@ -29,6 +29,7 @@ namespace MvvmDemo.ViewModels
             LoadData();
             CurrentEmployee=new Employee();
             saveCommand=new RelayCommands(Save);
+            searchCommand=new RelayCommands(Search);
         }
 
         #region DisplayOperation
@@ -64,6 +65,7 @@ namespace MvvmDemo.ViewModels
             set { message = value; OnChangedProperty("Message"); }
         }
 
+        #region SaveOperation
         private RelayCommands saveCommand;
 
         public RelayCommands SaveCommand
@@ -86,5 +88,34 @@ namespace MvvmDemo.ViewModels
                 Message=ex.Message;
             }
         }
+        #endregion
+
+        private RelayCommands searchCommand;
+
+        public RelayCommands SearchCommand
+        {
+            get { return searchCommand; }
+        }
+        public void Search()
+        {
+            try
+            {
+                var ObjEmployee = ObjEmployeeService.Search(CurrentEmployee.Id);
+                if(ObjEmployee != null)
+                {
+                    CurrentEmployee = ObjEmployee;
+                }
+                else
+                {
+                    Message = "Employee Not found";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
