@@ -59,21 +59,21 @@
             Grid.Column="1"
             Margin="5,8"
             Padding="3"
-            Text="{Binding Path=CurrentEmployee.Id}" />
+            Text="{Binding Path=CurrentEmployee.Id, Mode=TwoWay}" />
         <TextBox
             Name="txtName"
             Grid.Row="2"
             Grid.Column="1"
             Margin="5,8"
             Padding="3"
-            Text="{Binding Path=CurrentEmployee.Name}" />
+            Text="{Binding Path=CurrentEmployee.Name, Mode=TwoWay}" />
         <TextBox
             Name="txtAge"
             Grid.Row="3"
             Grid.Column="1"
             Margin="5,8"
             Padding="3"
-            Text="{Binding Path=CurrentEmployee.Age}" />
+            Text="{Binding Path=CurrentEmployee.Age, Mode=TwoWay}" />
 
         <StackPanel
             Grid.Row="4"
@@ -116,7 +116,7 @@
             Margin="5,8,5,8"
             Padding="3,3,3,3"
             AutoGenerateColumns="False"
-            ItemsSource="{Binding Path=EmployeesList}">
+            ItemsSource="{Binding Path=EmployeesList, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="auto"

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using MvvmDemo.Models;
 using MvvmDemo.Commands;
+using System.Collections.ObjectModel;
 namespace MvvmDemo.ViewModels
 {
     public class EmployeeViewModel : INotifyPropertyChanged
@@ -31,9 +32,11 @@ namespace MvvmDemo.ViewModels
         }
 
         #region DisplayOperation
-        private List<Employee> employeesList;
+        //List를 사용하는 경우는 실시간 업데이트에 동작하지 않는다.
+        //List대신 ObservableCollection을 사용한다.
+        private ObservableCollection<Employee> employeesList;
 
-        public List<Employee> EmployeesList
+        public ObservableCollection<Employee> EmployeesList
         {
             get { return employeesList; }
             set { employeesList = value; OnChangedProperty("EmployeesList"); }
@@ -41,7 +44,8 @@ namespace MvvmDemo.ViewModels
 
         private void LoadData()
         {
-            EmployeesList = ObjEmployeeService.GetAll();
+            //ObjEmployeeService에서 반환하는 List도 ObservableCollection형으로 전환하여 전달한다.
+            EmployeesList = new ObservableCollection<Employee>(ObjEmployeeService.GetAll());
         }
         #endregion
 
