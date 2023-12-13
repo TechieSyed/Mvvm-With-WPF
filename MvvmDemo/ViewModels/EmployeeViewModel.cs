@@ -103,7 +103,10 @@ namespace MvvmDemo.ViewModels
                 var ObjEmployee = ObjEmployeeService.Search(CurrentEmployee.Id);
                 if(ObjEmployee != null)
                 {
-                    CurrentEmployee = ObjEmployee;
+                    //CurrentEmployee가 업데이트되면 loop가 형성되므로 변경해준다.
+                    //CurrentEmployee = ObjEmployee;
+                    CurrentEmployee.Name = ObjEmployee.Name;
+                    CurrentEmployee.Age = ObjEmployee.Age;
                 }
                 else
                 {
