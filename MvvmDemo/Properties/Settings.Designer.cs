@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MvvmDemo2.Properties
+namespace MvvmDemo.Properties
 {
 
 

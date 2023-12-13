@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MvvmDemo
+namespace MvvmDemo.Views
 {
     /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// EmployeeView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EmployeeView : UserControl
     {
-        public MainWindow()
+        public EmployeeView()
         {
             InitializeComponent();
         }
