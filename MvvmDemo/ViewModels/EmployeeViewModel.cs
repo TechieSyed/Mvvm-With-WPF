@@ -27,7 +27,7 @@ namespace MvvmDemo.ViewModels
         {
             ObjEmployeeService = new EmployeeService();
             LoadData();
-            CurrentEmployee=new Employee();
+            CurrentEmployee=new EmployeeDTO();
             saveCommand=new RelayCommands(Save);
             searchCommand = new RelayCommands(Search);
             updateCommand = new RelayCommands(Update);
@@ -37,9 +37,9 @@ namespace MvvmDemo.ViewModels
         #region DisplayOperation
         //List를 사용하는 경우는 실시간 업데이트에 동작하지 않는다.
         //List대신 ObservableCollection을 사용한다.
-        private ObservableCollection<Employee> employeesList;
+        private ObservableCollection<EmployeeDTO> employeesList;
 
-        public ObservableCollection<Employee> EmployeesList
+        public ObservableCollection<EmployeeDTO> EmployeesList
         {
             get { return employeesList; }
             set { employeesList = value; OnChangedProperty("EmployeesList"); }
@@ -48,13 +48,13 @@ namespace MvvmDemo.ViewModels
         private void LoadData()
         {
             //ObjEmployeeService에서 반환하는 List도 ObservableCollection형으로 전환하여 전달한다.
-            EmployeesList = new ObservableCollection<Employee>(ObjEmployeeService.GetAll());
+            EmployeesList = new ObservableCollection<EmployeeDTO>(ObjEmployeeService.GetAll());
         }
         #endregion
 
-        private Employee currentEmployee;
+        private EmployeeDTO currentEmployee;
 
-        public Employee CurrentEmployee
+        public EmployeeDTO CurrentEmployee
         {
             get { return currentEmployee; }
             set { currentEmployee = value; OnChangedProperty("CurrentEmployee"); }

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 namespace MvvmDemo.Models
 {
-    public class Employee : INotifyPropertyChanged
+    public class EmployeeDTO : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public Employee() { }
+        public EmployeeDTO() { }
 
         //make helper funtion for INotifyPropertyChanged
         private void OnPropertyChanged(string propertyName)

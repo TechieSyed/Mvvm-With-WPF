@@ -7,59 +7,38 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using MvvmDemo.Models;
 namespace MvvmDemo.Models
 {
     public class EmployeeService
     {
-        SqlConnection ObjSqlConnection;
-        SqlCommand ObjSqlCommand;
+        MvvmDemoDbEntities ObjContext;
         public EmployeeService()
         {
-            ObjSqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["EMSConnection"].ConnectionString);
-            ObjSqlCommand = new SqlCommand();
-            ObjSqlCommand.Connection = ObjSqlConnection;
-            ObjSqlCommand.CommandType = CommandType.StoredProcedure ;
+            ObjContext = new MvvmDemoDbEntities();
         }
 
         //make some matters
-        public List<Employee> GetAll()
+        public List<EmployeeDTO> GetAll()
         {
-            List<Employee> ObjEmployeesList = new List<Employee>();
+            List<EmployeeDTO> ObjEmployeesList = new List<EmployeeDTO>();
             try
             {
-                ObjSqlCommand.Parameters.Clear();
-                ObjSqlCommand.CommandText = "udp_SelectAllEmployees";
-
-                ObjSqlConnection.Open();
-                var ObjSqlDataReader=ObjSqlCommand.ExecuteReader();
-                if(ObjSqlDataReader.HasRows)
+                var ObjQuery= from employee in ObjContext.Employees
+                              select employee;
+                foreach (var employee in ObjQuery)
                 {
-                    Employee ObjEmployee = null;
-                    while(ObjSqlDataReader.Read())
-                    {
-                        ObjEmployee = new Employee();
-                        ObjEmployee.Id = ObjSqlDataReader.GetInt32(0);
-                        ObjEmployee.Name = ObjSqlDataReader.GetString(1);
-                        ObjEmployee.Age = ObjSqlDataReader.GetInt32(2);
-
-                        ObjEmployeesList.Add(ObjEmployee);
-                    }
+                    ObjEmployeesList.Add(new EmployeeDTO() { Id = employee.Id, Name = employee.Name, Age=employee.Age });
                 }
-                ObjSqlDataReader.Close();
             }
             catch (SqlException ex)
             {
                 throw ex;
             }
-            finally
-            { 
-                ObjSqlConnection.Close();
-            }
-
             return ObjEmployeesList;
         }
 
-        public bool Add(Employee employee)
+        public bool Add(EmployeeDTO employee)
         {
             bool IsAdded=false;
             //Age must be between 21 and 58
@@ -68,51 +47,39 @@ namespace MvvmDemo.Models
 
             try
             {
-                ObjSqlCommand.Parameters.Clear();
-                ObjSqlCommand.CommandText = "udp_InsertEmployee";
-                ObjSqlCommand.Parameters.AddWithValue("@Id", employee.Id);
-                ObjSqlCommand.Parameters.AddWithValue("@Name", employee.Name);
-                ObjSqlCommand.Parameters.AddWithValue("@Age", employee.Age);
+                var ObjEmployee = new Employees();
+                ObjEmployee.Id = employee.Id; ObjEmployee.Name = employee.Name; ObjEmployee.Age = employee.Age;
 
-                ObjSqlConnection.Open();
-                int NoofRowsAffected=ObjSqlCommand.ExecuteNonQuery();
-                IsAdded = NoofRowsAffected> 0;
-
+                ObjContext.Employees.Add(ObjEmployee);
+                var NoofRowsAffected=ObjContext.SaveChanges();
+                IsAdded = NoofRowsAffected > 0;
             }
             catch (SqlException ex)
             {
                 throw ex;
-            }
-            finally
-            { 
-                ObjSqlConnection.Close( );
             }
             return IsAdded;
         }
 
-        public bool Update(Employee employee)
+        public bool Update(EmployeeDTO employee)
         {
             bool IsUpdated=false;
             try
             {
-                ObjSqlCommand.Parameters.Clear();
-                ObjSqlCommand.CommandText = "udp_UpdateEmployee";
-                ObjSqlCommand.Parameters.AddWithValue("@Id", employee.Id);
-                ObjSqlCommand.Parameters.AddWithValue("@Name", employee.Name);
-                ObjSqlCommand.Parameters.AddWithValue("@Age", employee.Age);
+                var ObjEmployee=ObjContext.Employees.Find(employee.Id);
+                if (ObjEmployee != null)
+                {
+                    ObjEmployee.Age = employee.Age;
+                    ObjEmployee.Name = employee.Name;
+                    ObjEmployee.Id= employee.Id;
 
-                ObjSqlConnection.Open();
-                int NoofRowsAffected = ObjSqlCommand.ExecuteNonQuery();
-                IsUpdated = NoofRowsAffected > 0;
-
+                    var NoofRowsAffected = ObjContext.SaveChanges();
+                    IsUpdated = NoofRowsAffected > 0;
+                }
             }
             catch (SqlException ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                ObjSqlConnection.Close();
             }
             return IsUpdated;
         }
@@ -122,54 +89,42 @@ namespace MvvmDemo.Models
             bool IsDeleted=false;
             try
             {
-                ObjSqlCommand.Parameters.Clear();
-                ObjSqlCommand.CommandText = "udp_DeleteEmployee";
-                ObjSqlCommand.Parameters.AddWithValue("@Id", id);
+                var ObjEmployee = ObjContext.Employees.Find(id);
+                if (ObjEmployee != null)
+                {
+                    ObjContext.Employees.Remove(ObjEmployee);
 
-                ObjSqlConnection.Open();
-                int NoofRowsAffected = ObjSqlCommand.ExecuteNonQuery();
-                IsDeleted = NoofRowsAffected > 0;
-
+                    var NoofRowsAffected = ObjContext.SaveChanges();
+                    IsDeleted = NoofRowsAffected > 0;
+                }
             }
             catch (SqlException ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                ObjSqlConnection.Close();
             }
             return IsDeleted;
         }
 
-        public Employee Search(int id)
+        public EmployeeDTO Search(int id)
         {
-            Employee employee = null;
+            EmployeeDTO employee = null;
             try
             {
-                ObjSqlCommand.Parameters.Clear();
-                ObjSqlCommand.CommandText = "udp_SelectEmployeeById";
-                ObjSqlCommand.Parameters.AddWithValue("@Id", id);
-
-                ObjSqlConnection.Open();
-                var ObjSqlDataReader = ObjSqlCommand.ExecuteReader();
-                if(ObjSqlDataReader.HasRows)
+                var ObjEmployeeToFind=ObjContext.Employees.Find(id);
+                if (ObjEmployeeToFind != null)
                 {
-                    ObjSqlDataReader.Read();
-                    employee= new Employee();
-                    employee.Id = ObjSqlDataReader.GetInt32(0);
-                    employee.Name = ObjSqlDataReader.GetString(1);
-                    employee.Age = ObjSqlDataReader.GetInt32(2);
+                    employee = new EmployeeDTO()
+                    {
+                        Name = ObjEmployeeToFind.Name,
+                        Age = ObjEmployeeToFind.Age,
+                        Id = ObjEmployeeToFind.Id
+                    };
+
                 }
-                ObjSqlDataReader.Close();
             }
             catch (SqlException ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                ObjSqlConnection.Close();
             }
             return employee;
         }
